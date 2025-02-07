@@ -1,0 +1,21 @@
+[package]
+name = "kubellm"
+version = "0.0.1"
+edition = "2021"
+authors = ["Bram van Meurs"]
+license = "MIT"
+description = "KubeLLM is a simple LLM proxy designed to run on Kubernetes or standalone"
+homepage = "https://github.com/bcvanmeurs/kubellm"
+readme = "README.md"
+repository = "https://github.com/bcvanmeurs/kubellm"
+keywords = ["kubernetes", "llm", "proxy"]
+categories = ["web-programming"]
+
+
+[dependencies]
+anyhow = "1.0.95"
+axum = "0.8.1"
+reqwest = { version = "0.12.12", features = ["json"] }
+serde = { version = "1.0.217", features = ["serde_derive"] }
+serde_json = "1.0.138"
+tokio = { version = "1.43.0", features = ["macros", "rt-multi-thread"] }
