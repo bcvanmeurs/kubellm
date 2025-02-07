@@ -27,6 +27,8 @@ async fn main() -> Result<(), Error> {
     // Run server
     let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
     let listener = TcpListener::bind(addr).await?;
+
+    println!("Listening on {}", addr);
     axum::serve(listener, app).await?;
 
     Ok(())
@@ -36,6 +38,10 @@ async fn chat_handler(
     State(state): State<AppState>,
     Json(request): Json<OpenAIChatCompletionRequest>,
 ) -> impl IntoResponse {
+    println!("Received request");
     let response = state.client.chat(request).await.unwrap();
+    println!("Prompt tokens:     {}", response.usage.prompt_tokens);
+    println!("Completion tokens: {}", response.usage.completion_tokens);
+    println!("Total tokens:      {}", response.usage.total_tokens);
     (StatusCode::OK, Json(response))
 }
