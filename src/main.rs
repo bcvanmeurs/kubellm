@@ -13,8 +13,8 @@ async fn main() -> Result<(), Error> {
     let client = openai::OpenAIClient::new(api_key);
 
     // Create a simple chat request
-    let request =
-        openai::OpenAIChatRequest::new("gpt-4o-mini").with_message("user", "Hello, how are you?");
+    let request = openai::OpenAIChatCompletionRequest::new("gpt-4o-mini")
+        .with_message("user", "Hello, how are you?");
 
     println!("Sending request to OpenAI...");
 
@@ -26,7 +26,10 @@ async fn main() -> Result<(), Error> {
         Ok(response) => {
             println!("\nResponse received!");
             println!("Model: {}", response.model);
-            println!("Message content: {}", response.choices[0].message.content);
+            println!(
+                "Message content: {}",
+                response.choices[0].message.content_text()
+            );
             println!("\nUsage statistics:");
             println!("  Prompt tokens: {}", response.usage.prompt_tokens);
             println!("  Completion tokens: {}", response.usage.completion_tokens);
