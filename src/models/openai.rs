@@ -81,7 +81,7 @@ impl Message {
         let content = self.content().unwrap();
         match content {
             Content::Text(text) => text.clone(),
-            Content::Array(_) => "Cannot get content text from array".to_string(),
+            Content::Array(_) => "<Array>".to_string(),
         }
     }
 }
@@ -123,6 +123,7 @@ pub struct Usage {
     pub prompt_tokens_details: Value,
 }
 
+#[derive(Clone)]
 pub struct OpenAIClient {
     client: reqwest::Client,
     api_key: String,
